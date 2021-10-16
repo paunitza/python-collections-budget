@@ -1,4 +1,4 @@
-from . import Expense
+from budget import Expense
 import matplotlib.pyplot as plt
 import timeit
 
@@ -12,15 +12,17 @@ def main():
         print('Sets are NOT equal by == test')
 
     print(timeit.timeit(stmt='expenses.categorize_for_loop()',
-                        setup='''from budget import Expense
-                        expenses = Expense.Expenses()
-                        expenses.read_expenses('data/spending_data.csv')
+                        setup='''
+from . import Expense
+expenses = Expense.Expenses()
+expenses.read_expenses('data/spending_data.csv')
                         ''', number=100000, globals=globals()))
 
     print(timeit.timeit(stmt='expenses.categorize_set_comprehension()',
-                        setup='''from budget import Expense
-                        expenses = Expense.Expenses()
-                        expenses.read_expenses('data/spending_data.csv')
+                        setup='''
+from . import Expense
+expenses = Expense.Expenses()
+expenses.read_expenses('data/spending_data.csv')
                         ''', number=100000, globals=globals()))
 
     for a, b in zip(divided_for_loop, divided_set_comp):
